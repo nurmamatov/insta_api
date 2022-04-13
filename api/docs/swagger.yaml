@@ -1,0 +1,41 @@
+basePath: /v1
+definitions:
+  models.CreateTaskReq:
+    type: object
+  models.TaskRes:
+    type: object
+info:
+  contact: {}
+  description: this is a user and task services api
+  version: "1.0"
+paths:
+  /tasks:
+    post:
+      consumes:
+      - application/json
+      description: This method create new task
+      parameters:
+      - description: New Task
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateTaskReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.TaskRes'
+      security:
+      - BearerAuth: []
+      summary: Creates new task
+      tags:
+      - Task
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
