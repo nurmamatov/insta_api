@@ -52,3 +52,9 @@ type GetUserRes struct {
 type UserList struct {
 	Users []GetUserRes `json:"users"`
 }
+type Err struct {
+	Error string `json:"error"`
+}
+type ListUserssRes struct {
+	Posts []GetUserRes `json:"posts"`
+}

@@ -1,41 +1,742 @@
 basePath: /v1
 definitions:
-  models.CreateTaskReq:
+  models.Bool:
+    properties:
+      check_like:
+        type: boolean
     type: object
-  models.TaskRes:
+  models.CreateCommentReq:
+    properties:
+      post_id:
+        type: string
+      text:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.CreatePostReq:
+    properties:
+      description:
+        type: string
+      image:
+        type: string
+      title:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.CreateUserReq:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      gender:
+        type: boolean
+      last_name:
+        type: string
+      password:
+        type: string
+      phonoe:
+        type: string
+      photo:
+        type: string
+      username:
+        type: string
+    type: object
+  models.DeleteCommentReq:
+    properties:
+      post_id:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.DeletePostReq:
+    properties:
+      post_id:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.DeleteUserReq:
+    properties:
+      password:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.Empty:
+    type: object
+  models.Err:
+    properties:
+      error:
+        type: string
+    type: object
+  models.GetCommentReq:
+    properties:
+      post_id:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.GetCommentRes:
+    properties:
+      text:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.GetPostReq:
+    properties:
+      post_id:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.GetPostRes:
+    properties:
+      check_like:
+        type: boolean
+      desctiption:
+        type: string
+      image:
+        type: string
+      post_id:
+        type: string
+      title:
+        type: string
+      usr_id:
+        type: string
+    type: object
+  models.GetUserReq:
+    properties:
+      user_id:
+        type: string
+    type: object
+  models.GetUserRes:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      gender:
+        type: boolean
+      last_name:
+        type: string
+      phonoe:
+        type: string
+      photo:
+        type: string
+      user_id:
+        type: string
+      username:
+        type: string
+    type: object
+  models.LikeDeleteReq:
+    properties:
+      post_id:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.LikePostReq:
+    properties:
+      post_id:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.ListPostsRes:
+    properties:
+      posts:
+        items:
+          $ref: '#/definitions/models.GetPostRes'
+        type: array
+    type: object
+  models.ListUserPosts:
+    properties:
+      posts:
+        items:
+          $ref: '#/definitions/models.GetPostRes'
+        type: array
+    type: object
+  models.LoginReq:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  models.Message:
+    properties:
+      message:
+        type: string
+    type: object
+  models.SearchUserReq:
+    properties:
+      search:
+        type: string
+    type: object
+  models.UpdateCommentReq:
+    properties:
+      post_id:
+        type: string
+      text:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.UpdatePostReq:
+    properties:
+      description:
+        type: string
+      post_id:
+        type: string
+      title:
+        type: string
+    type: object
+  models.UpdateUserReq:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      gender:
+        type: boolean
+      last_name:
+        type: string
+      password:
+        type: string
+      phonoe:
+        type: string
+      photo:
+        type: string
+      user_id:
+        type: string
+      username:
+        type: string
+    type: object
+  models.UserList:
+    properties:
+      users:
+        items:
+          $ref: '#/definitions/models.GetUserRes'
+        type: array
     type: object
 info:
   contact: {}
-  description: this is a user and task services api
+  description: this is a user, post and comment services api
   version: "1.0"
 paths:
-  /tasks:
+  /comment/create:
     post:
       consumes:
       - application/json
-      description: This method create new task
+      description: This method create new comment
       parameters:
-      - description: New Task
+      - description: Create Comment
         in: body
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.CreateTaskReq'
+          $ref: '#/definitions/models.CreateCommentReq'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/models.TaskRes'
-      security:
-      - BearerAuth: []
-      summary: Creates new task
+            $ref: '#/definitions/models.GetCommentRes'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Create New Comment
       tags:
-      - Task
-securityDefinitions:
-  BearerAuth:
-    in: header
-    name: Authorization
-    type: apiKey
+      - Comment
+  /comment/delete:
+    put:
+      consumes:
+      - application/json
+      description: This method Delete comment
+      parameters:
+      - description: Delete Comment
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.DeleteCommentReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Empty'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Delete Comment
+      tags:
+      - Comment
+  /comment/get:
+    get:
+      consumes:
+      - application/json
+      description: This method Get comment
+      parameters:
+      - description: Get Comment
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetCommentReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.GetCommentRes'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Get Comment
+      tags:
+      - Comment
+  /comment/update:
+    put:
+      consumes:
+      - application/json
+      description: This method Update comment
+      parameters:
+      - description: Update Comment
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateCommentReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.GetCommentRes'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Update Comment
+      tags:
+      - Comment
+  /list/user/posts:
+    get:
+      consumes:
+      - application/json
+      description: This method for list user posts
+      parameters:
+      - description: List posts
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.ListUserPosts'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.ListPostsRes'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: List user posts
+      tags:
+      - Post
+  /login:
+    get:
+      consumes:
+      - application/json
+      description: This method for Login
+      parameters:
+      - description: Login
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.GetUserRes'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Login User
+      tags:
+      - User
+  /post/create:
+    post:
+      consumes:
+      - application/json
+      description: This method create new post
+      parameters:
+      - description: Create Post
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreatePostReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.GetPostRes'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Create New Post
+      tags:
+      - Post
+  /post/delete:
+    put:
+      consumes:
+      - application/json
+      description: This method for Delete Post
+      parameters:
+      - description: Delete Post
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.DeletePostReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Message'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Delete Post
+      tags:
+      - Post
+  /post/get:
+    get:
+      consumes:
+      - application/json
+      description: This method for Get Post
+      parameters:
+      - description: Get Post
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetPostReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.GetUserRes'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Get Post
+      tags:
+      - Post
+  /post/like:
+    delete:
+      consumes:
+      - application/json
+      description: This method for Delete Like
+      parameters:
+      - description: Delete Like
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.LikeDeleteReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Bool'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Delete Like
+      tags:
+      - Post
+    post:
+      consumes:
+      - application/json
+      description: This method for Like Post
+      parameters:
+      - description: Like Post
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.LikePostReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Bool'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Like Post
+      tags:
+      - Post
+  /post/update:
+    put:
+      consumes:
+      - application/json
+      description: This method for Update Post
+      parameters:
+      - description: Update Post
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdatePostReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.GetPostRes'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Update Post
+      tags:
+      - Post
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: This method register new user
+      parameters:
+      - description: Register User
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateUserReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.GetUserRes'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Create New User
+      tags:
+      - User
+  /search/user:
+    get:
+      consumes:
+      - application/json
+      description: This method search from users
+      parameters:
+      - description: Search
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.SearchUserReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.UserList'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Search User
+      tags:
+      - User
+  /user/delete:
+    put:
+      consumes:
+      - application/json
+      description: This method for Delete user
+      parameters:
+      - description: Delete
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.DeleteUserReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Message'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Delete User
+      tags:
+      - User
+  /user/get:
+    get:
+      consumes:
+      - application/json
+      description: This method for Get User Posts
+      parameters:
+      - description: Get User Posts
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.GetUserReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.GetUserRes'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Get User Posts
+      tags:
+      - User
+  /user/update:
+    put:
+      consumes:
+      - application/json
+      description: This method for Update
+      parameters:
+      - description: Update
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdateUserReq'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.GetUserRes'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Err'
+      summary: Update User
+      tags:
+      - User
 swagger: "2.0"
