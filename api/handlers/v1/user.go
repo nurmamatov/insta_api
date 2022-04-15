@@ -7,6 +7,7 @@ import (
 
 	// "tasks/Instagram_clone/insta_api/api/handlers/user_proto"
 	pu "tasks/Instagram_clone/insta_api/genproto/user_proto"
+	l "tasks/Instagram_clone/insta_api/pkg/logger"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -25,7 +26,7 @@ import (
 // @Router /register [POST]
 func (h *handlerV1) RegisterUser(c *gin.Context) {
 	body := pu.CreateUserReq{}
-	
+
 	err := c.ShouldBindJSON(&body)
 	if err != nil {
 		fmt.Println(err)
@@ -34,7 +35,7 @@ func (h *handlerV1) RegisterUser(c *gin.Context) {
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
 	defer cancel()
-	fmt.Println(body)
+
 	res, err := h.serviceManager.UserService().CreateUser(ctx, &body)
 	if err != nil {
 		fmt.Println(err)
@@ -57,18 +58,55 @@ func (h *handlerV1) RegisterUser(c *gin.Context) {
 // @Router /login [GET]
 func (h *handlerV1) Login(c *gin.Context) {
 	body := pu.LoginReq{}
+
 	err := c.ShouldBindJSON(&body)
-	fmt.Println(body)
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusOK, gin.H{
-			"message": "salome emas",
-		})
+		c.JSON(http.StatusBadRequest, pu.Err{Error: "Parse json request!"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"message": "salom",
-	})
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	defer cancel()
+
+	res, err := h.serviceManager.UserService().Login(ctx, &body)
+	if err != nil {
+		l.Error(err)
+		c.JSON(http.StatusInternalServerError, pu.Err{Error: "Connection error"})
+		return
+	}
+	c.JSON(http.StatusOK, res)
+}
+
+// ChangePassAs godoc
+// @Summary Update Password
+// @Description This method for Update password
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param todo body user_proto.UpdatePassword true "Password update"
+// @Success 201 {object} user_proto.Message
+// @Failure 401 {object} user_proto.Err
+// @Failure 500 {object} user_proto.Err
+// @Router /user/password [PUT]
+func (h *handlerV1) ChangePassword(c *gin.Context) {
+	body := pu.UpdatePass{}
+	err := c.ShouldBindJSON(&body)
+	if err != nil {
+		l.Error(err)
+		c.JSON(http.StatusBadRequest, pu.Err{Error: "Parse json request!"})
+		return
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	defer cancel()
+
+	res, err := h.serviceManager.UserService().UpdatePassword(ctx, &body)
+	if err != nil {
+		l.Error(err)
+		c.JSON(http.StatusInternalServerError, pu.Err{Error: "Connection error"})
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // UpdateAs godoc
@@ -84,18 +122,23 @@ func (h *handlerV1) Login(c *gin.Context) {
 // @Router /user/update [PUT]
 func (h *handlerV1) Update(c *gin.Context) {
 	body := pu.UpdateUserReq{}
+
 	err := c.ShouldBindJSON(&body)
-	fmt.Println(body)
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusOK, gin.H{
-			"message": "salome emas",
-		})
+		c.JSON(http.StatusBadRequest, pu.Err{Error: "Parse json request!"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"message": "salom",
-	})
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	defer cancel()
+
+	res, err := h.serviceManager.UserService().UpdateUser(ctx, &body)
+	if err != nil {
+		l.Error(err)
+		c.JSON(http.StatusInternalServerError, pu.Err{Error: "Connection error"})
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // DeleteAs godoc
@@ -111,18 +154,24 @@ func (h *handlerV1) Update(c *gin.Context) {
 // @Router /user/delete [PUT]
 func (h *handlerV1) Delete(c *gin.Context) {
 	body := pu.DeleteUserReq{}
+
 	err := c.ShouldBindJSON(&body)
-	fmt.Println(body)
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusOK, gin.H{
-			"message": "salome emas",
-		})
+		c.JSON(http.StatusBadRequest, pu.Err{Error: "Parse json request!"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"message": "salom",
-	})
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	defer cancel()
+
+	res, err := h.serviceManager.UserService().DeleteUser(ctx, &body)
+	if err != nil {
+		l.Error(err)
+		c.JSON(http.StatusInternalServerError, pu.Err{Error: "Connection error"})
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // SearchAs godoc
@@ -138,43 +187,55 @@ func (h *handlerV1) Delete(c *gin.Context) {
 // @Router /search/user [GET]
 func (h *handlerV1) Search(c *gin.Context) {
 	body := pu.SearchUserReq{}
+
 	err := c.ShouldBindJSON(&body)
-	fmt.Println(body)
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusOK, gin.H{
-			"message": "salome emas",
-		})
+		c.JSON(http.StatusBadRequest, pu.Err{Error: "Parse json request!"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"message": "salom",
-	})
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	defer cancel()
+
+	res, err := h.serviceManager.UserService().SearchUser(ctx, &body)
+	if err != nil {
+		l.Error(err)
+		c.JSON(http.StatusInternalServerError, pu.Err{Error: "Connection error"})
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
-// GetUserPostsAs godoc
-// @Summary Get User Posts
-// @Description This method for Get User Posts
+// SearchAs godoc
+// @Summary Search User
+// @Description This method search from users
 // @Tags User
 // @Accept json
 // @Produce json
-// @Param todo body user_proto.GetUserReq true "Get User Posts"
+// @Param todo body user_proto.GetUserReq true "Search"
 // @Success 201 {object} user_proto.GetUserRes
 // @Failure 401 {object} user_proto.Err
 // @Failure 500 {object} user_proto.Err
-// @Router /user/get [GET]
+// @Router /user/post [GET]
 func (h *handlerV1) GetUserPosts(c *gin.Context) {
 	body := pu.GetUserReq{}
+
 	err := c.ShouldBindJSON(&body)
-	fmt.Println(body)
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusOK, gin.H{
-			"message": "salome emas",
-		})
+		c.JSON(http.StatusBadRequest, pu.Err{Error: "Parse json request!"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"message": "salom",
-	})
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	defer cancel()
+
+	res, err := h.serviceManager.UserService().GetUser(ctx, &body)
+	if err != nil {
+		l.Error(err)
+		c.JSON(http.StatusInternalServerError, pu.Err{Error: "Connection error"})
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
