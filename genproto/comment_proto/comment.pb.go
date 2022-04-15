@@ -27,6 +27,9 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 type CreateCommentReq struct {
+	PostId               string   `protobuf:"bytes,1,opt,name=post_id,json=postId,proto3" json:"post_id"`
+	UserId               string   `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id"`
+	Text                 string   `protobuf:"bytes,3,opt,name=text,proto3" json:"text"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -65,7 +68,30 @@ func (m *CreateCommentReq) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_CreateCommentReq proto.InternalMessageInfo
 
+func (m *CreateCommentReq) GetPostId() string {
+	if m != nil {
+		return m.PostId
+	}
+	return ""
+}
+
+func (m *CreateCommentReq) GetUserId() string {
+	if m != nil {
+		return m.UserId
+	}
+	return ""
+}
+
+func (m *CreateCommentReq) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
 type GetCommentReq struct {
+	PostId               string   `protobuf:"bytes,1,opt,name=post_id,json=postId,proto3" json:"post_id"`
+	UserId               string   `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -104,7 +130,24 @@ func (m *GetCommentReq) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GetCommentReq proto.InternalMessageInfo
 
+func (m *GetCommentReq) GetPostId() string {
+	if m != nil {
+		return m.PostId
+	}
+	return ""
+}
+
+func (m *GetCommentReq) GetUserId() string {
+	if m != nil {
+		return m.UserId
+	}
+	return ""
+}
+
 type UpdateCommentReq struct {
+	PostId               string   `protobuf:"bytes,1,opt,name=post_id,json=postId,proto3" json:"post_id"`
+	UserId               string   `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id"`
+	Text                 string   `protobuf:"bytes,3,opt,name=text,proto3" json:"text"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -143,7 +186,30 @@ func (m *UpdateCommentReq) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_UpdateCommentReq proto.InternalMessageInfo
 
+func (m *UpdateCommentReq) GetPostId() string {
+	if m != nil {
+		return m.PostId
+	}
+	return ""
+}
+
+func (m *UpdateCommentReq) GetUserId() string {
+	if m != nil {
+		return m.UserId
+	}
+	return ""
+}
+
+func (m *UpdateCommentReq) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
 type DeleteCommentReq struct {
+	PostId               string   `protobuf:"bytes,1,opt,name=post_id,json=postId,proto3" json:"post_id"`
+	UserId               string   `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -182,24 +248,38 @@ func (m *DeleteCommentReq) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_DeleteCommentReq proto.InternalMessageInfo
 
-type Message struct {
+func (m *DeleteCommentReq) GetPostId() string {
+	if m != nil {
+		return m.PostId
+	}
+	return ""
+}
+
+func (m *DeleteCommentReq) GetUserId() string {
+	if m != nil {
+		return m.UserId
+	}
+	return ""
+}
+
+type Empty struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *Message) Reset()         { *m = Message{} }
-func (m *Message) String() string { return proto.CompactTextString(m) }
-func (*Message) ProtoMessage()    {}
-func (*Message) Descriptor() ([]byte, []int) {
+func (m *Empty) Reset()         { *m = Empty{} }
+func (m *Empty) String() string { return proto.CompactTextString(m) }
+func (*Empty) ProtoMessage()    {}
+func (*Empty) Descriptor() ([]byte, []int) {
 	return fileDescriptor_03e2197c914a4a89, []int{4}
 }
-func (m *Message) XXX_Unmarshal(b []byte) error {
+func (m *Empty) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *Message) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *Empty) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_Message.Marshal(b, m, deterministic)
+		return xxx_messageInfo_Empty.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -209,19 +289,21 @@ func (m *Message) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
-func (m *Message) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Message.Merge(m, src)
+func (m *Empty) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Empty.Merge(m, src)
 }
-func (m *Message) XXX_Size() int {
+func (m *Empty) XXX_Size() int {
 	return m.Size()
 }
-func (m *Message) XXX_DiscardUnknown() {
-	xxx_messageInfo_Message.DiscardUnknown(m)
+func (m *Empty) XXX_DiscardUnknown() {
+	xxx_messageInfo_Empty.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Message proto.InternalMessageInfo
+var xxx_messageInfo_Empty proto.InternalMessageInfo
 
 type GetCommentRes struct {
+	UserId               string   `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id"`
+	Text                 string   `protobuf:"bytes,2,opt,name=text,proto3" json:"text"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -260,32 +342,50 @@ func (m *GetCommentRes) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GetCommentRes proto.InternalMessageInfo
 
+func (m *GetCommentRes) GetUserId() string {
+	if m != nil {
+		return m.UserId
+	}
+	return ""
+}
+
+func (m *GetCommentRes) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*CreateCommentReq)(nil), "comment_proto.CreateCommentReq")
 	proto.RegisterType((*GetCommentReq)(nil), "comment_proto.GetCommentReq")
 	proto.RegisterType((*UpdateCommentReq)(nil), "comment_proto.UpdateCommentReq")
 	proto.RegisterType((*DeleteCommentReq)(nil), "comment_proto.DeleteCommentReq")
-	proto.RegisterType((*Message)(nil), "comment_proto.Message")
+	proto.RegisterType((*Empty)(nil), "comment_proto.Empty")
 	proto.RegisterType((*GetCommentRes)(nil), "comment_proto.GetCommentRes")
 }
 
 func init() { proto.RegisterFile("comment_proto/comment.proto", fileDescriptor_03e2197c914a4a89) }
 
 var fileDescriptor_03e2197c914a4a89 = []byte{
-	// 202 bytes of a gzipped FileDescriptorProto
+	// 265 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x4e, 0xce, 0xcf, 0xcd,
 	0x4d, 0xcd, 0x2b, 0x89, 0x2f, 0x28, 0xca, 0x2f, 0xc9, 0xd7, 0x87, 0xf2, 0xf4, 0xc0, 0x3c, 0x21,
-	0x5e, 0x14, 0x49, 0x25, 0x21, 0x2e, 0x01, 0xe7, 0xa2, 0xd4, 0xc4, 0x92, 0x54, 0x67, 0x88, 0x70,
-	0x50, 0x6a, 0xa1, 0x12, 0x3f, 0x17, 0xaf, 0x7b, 0x6a, 0x09, 0x92, 0x80, 0x10, 0x97, 0x40, 0x68,
-	0x41, 0x0a, 0xaa, 0x22, 0x21, 0x2e, 0x01, 0x97, 0xd4, 0x9c, 0x54, 0x14, 0x31, 0x4e, 0x2e, 0x76,
-	0xdf, 0xd4, 0xe2, 0xe2, 0xc4, 0xf4, 0x54, 0x74, 0x33, 0x8a, 0x8d, 0x8e, 0x30, 0x71, 0xf1, 0x41,
-	0xb9, 0xc1, 0xa9, 0x45, 0x65, 0x99, 0xc9, 0xa9, 0x42, 0x7e, 0x5c, 0xbc, 0x28, 0x76, 0x0b, 0xc9,
-	0xeb, 0xa1, 0x38, 0x4e, 0x0f, 0xdd, 0x65, 0x52, 0x32, 0x68, 0x0a, 0x50, 0xac, 0x10, 0xf2, 0xe0,
-	0xe2, 0x42, 0x08, 0x08, 0xe1, 0x53, 0x4b, 0xc8, 0x24, 0x3f, 0x2e, 0x5e, 0x14, 0x0f, 0x63, 0xb8,
-	0x0c, 0x3d, 0x38, 0x08, 0xba, 0x8c, 0x17, 0x25, 0xb0, 0x30, 0xcc, 0x43, 0x0f, 0x4a, 0x29, 0x31,
-	0x34, 0x05, 0xd0, 0x70, 0x75, 0x12, 0x38, 0xf1, 0x48, 0x8e, 0xf1, 0xc2, 0x23, 0x39, 0xc6, 0x07,
-	0x8f, 0xe4, 0x18, 0x67, 0x3c, 0x96, 0x63, 0x48, 0x62, 0x03, 0x2b, 0x30, 0x06, 0x04, 0x00, 0x00,
-	0xff, 0xff, 0x34, 0x35, 0x4e, 0x17, 0xf6, 0x01, 0x00, 0x00,
+	0x5e, 0x14, 0x49, 0xa5, 0x08, 0x2e, 0x01, 0xe7, 0xa2, 0xd4, 0xc4, 0x92, 0x54, 0x67, 0x88, 0x70,
+	0x50, 0x6a, 0xa1, 0x90, 0x38, 0x17, 0x7b, 0x41, 0x7e, 0x71, 0x49, 0x7c, 0x66, 0x8a, 0x04, 0xa3,
+	0x02, 0xa3, 0x06, 0x67, 0x10, 0x1b, 0x88, 0xeb, 0x99, 0x02, 0x92, 0x28, 0x2d, 0x4e, 0x2d, 0x02,
+	0x49, 0x30, 0x41, 0x24, 0x40, 0x5c, 0xcf, 0x14, 0x21, 0x21, 0x2e, 0x96, 0x92, 0xd4, 0x8a, 0x12,
+	0x09, 0x66, 0xb0, 0x28, 0x98, 0xad, 0xe4, 0xc8, 0xc5, 0xeb, 0x9e, 0x5a, 0x42, 0x89, 0xb1, 0x20,
+	0xc7, 0x85, 0x16, 0xa4, 0xd0, 0xc2, 0x71, 0x2e, 0x5c, 0x02, 0x2e, 0xa9, 0x39, 0xa9, 0x94, 0x99,
+	0xac, 0xc4, 0xce, 0xc5, 0xea, 0x9a, 0x5b, 0x50, 0x52, 0xa9, 0x64, 0x83, 0xea, 0xd7, 0x62, 0x64,
+	0x2d, 0x8c, 0x58, 0x1d, 0xc3, 0x84, 0x70, 0x8c, 0xd1, 0x21, 0x26, 0x2e, 0x3e, 0xa8, 0xde, 0xe0,
+	0xd4, 0xa2, 0xb2, 0xcc, 0xe4, 0x54, 0x21, 0x3f, 0x2e, 0x5e, 0x94, 0x68, 0x11, 0x92, 0xd7, 0x43,
+	0x89, 0x37, 0x3d, 0xf4, 0x48, 0x93, 0x92, 0x41, 0x53, 0x80, 0xea, 0x1e, 0x0f, 0x2e, 0x2e, 0x84,
+	0x80, 0x10, 0x3e, 0xb5, 0x84, 0x4c, 0xf2, 0xe3, 0xe2, 0x45, 0x89, 0x13, 0x0c, 0x97, 0xa1, 0xc7,
+	0x18, 0x01, 0xf3, 0xdc, 0xb8, 0x78, 0x51, 0x62, 0x02, 0xc3, 0x3c, 0xf4, 0x78, 0x92, 0x12, 0x41,
+	0x53, 0x00, 0x8e, 0x02, 0x27, 0x81, 0x13, 0x8f, 0xe4, 0x18, 0x2f, 0x3c, 0x92, 0x63, 0x7c, 0xf0,
+	0x48, 0x8e, 0x71, 0xc6, 0x63, 0x39, 0x86, 0x24, 0x36, 0xb0, 0xb4, 0x31, 0x20, 0x00, 0x00, 0xff,
+	0xff, 0x7f, 0xf1, 0x5e, 0x04, 0x0f, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -303,7 +403,7 @@ type CommentServiceClient interface {
 	CreateComment(ctx context.Context, in *CreateCommentReq, opts ...grpc.CallOption) (*GetCommentRes, error)
 	GetComment(ctx context.Context, in *GetCommentReq, opts ...grpc.CallOption) (*GetCommentRes, error)
 	UpdateComment(ctx context.Context, in *UpdateCommentReq, opts ...grpc.CallOption) (*GetCommentRes, error)
-	DeleteComment(ctx context.Context, in *DeleteCommentReq, opts ...grpc.CallOption) (*Message, error)
+	DeleteComment(ctx context.Context, in *DeleteCommentReq, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type commentServiceClient struct {
@@ -341,8 +441,8 @@ func (c *commentServiceClient) UpdateComment(ctx context.Context, in *UpdateComm
 	return out, nil
 }
 
-func (c *commentServiceClient) DeleteComment(ctx context.Context, in *DeleteCommentReq, opts ...grpc.CallOption) (*Message, error) {
-	out := new(Message)
+func (c *commentServiceClient) DeleteComment(ctx context.Context, in *DeleteCommentReq, opts ...grpc.CallOption) (*Empty, error) {
+	out := new(Empty)
 	err := c.cc.Invoke(ctx, "/comment_proto.CommentService/DeleteComment", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -355,7 +455,7 @@ type CommentServiceServer interface {
 	CreateComment(context.Context, *CreateCommentReq) (*GetCommentRes, error)
 	GetComment(context.Context, *GetCommentReq) (*GetCommentRes, error)
 	UpdateComment(context.Context, *UpdateCommentReq) (*GetCommentRes, error)
-	DeleteComment(context.Context, *DeleteCommentReq) (*Message, error)
+	DeleteComment(context.Context, *DeleteCommentReq) (*Empty, error)
 }
 
 // UnimplementedCommentServiceServer can be embedded to have forward compatible implementations.
@@ -371,7 +471,7 @@ func (*UnimplementedCommentServiceServer) GetComment(ctx context.Context, req *G
 func (*UnimplementedCommentServiceServer) UpdateComment(ctx context.Context, req *UpdateCommentReq) (*GetCommentRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateComment not implemented")
 }
-func (*UnimplementedCommentServiceServer) DeleteComment(ctx context.Context, req *DeleteCommentReq) (*Message, error) {
+func (*UnimplementedCommentServiceServer) DeleteComment(ctx context.Context, req *DeleteCommentReq) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteComment not implemented")
 }
 
@@ -500,6 +600,27 @@ func (m *CreateCommentReq) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
+	if len(m.Text) > 0 {
+		i -= len(m.Text)
+		copy(dAtA[i:], m.Text)
+		i = encodeVarintComment(dAtA, i, uint64(len(m.Text)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.UserId) > 0 {
+		i -= len(m.UserId)
+		copy(dAtA[i:], m.UserId)
+		i = encodeVarintComment(dAtA, i, uint64(len(m.UserId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.PostId) > 0 {
+		i -= len(m.PostId)
+		copy(dAtA[i:], m.PostId)
+		i = encodeVarintComment(dAtA, i, uint64(len(m.PostId)))
+		i--
+		dAtA[i] = 0xa
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -526,6 +647,20 @@ func (m *GetCommentReq) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	if m.XXX_unrecognized != nil {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
+	}
+	if len(m.UserId) > 0 {
+		i -= len(m.UserId)
+		copy(dAtA[i:], m.UserId)
+		i = encodeVarintComment(dAtA, i, uint64(len(m.UserId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.PostId) > 0 {
+		i -= len(m.PostId)
+		copy(dAtA[i:], m.PostId)
+		i = encodeVarintComment(dAtA, i, uint64(len(m.PostId)))
+		i--
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -554,6 +689,27 @@ func (m *UpdateCommentReq) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
+	if len(m.Text) > 0 {
+		i -= len(m.Text)
+		copy(dAtA[i:], m.Text)
+		i = encodeVarintComment(dAtA, i, uint64(len(m.Text)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.UserId) > 0 {
+		i -= len(m.UserId)
+		copy(dAtA[i:], m.UserId)
+		i = encodeVarintComment(dAtA, i, uint64(len(m.UserId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.PostId) > 0 {
+		i -= len(m.PostId)
+		copy(dAtA[i:], m.PostId)
+		i = encodeVarintComment(dAtA, i, uint64(len(m.PostId)))
+		i--
+		dAtA[i] = 0xa
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -581,10 +737,24 @@ func (m *DeleteCommentReq) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
+	if len(m.UserId) > 0 {
+		i -= len(m.UserId)
+		copy(dAtA[i:], m.UserId)
+		i = encodeVarintComment(dAtA, i, uint64(len(m.UserId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.PostId) > 0 {
+		i -= len(m.PostId)
+		copy(dAtA[i:], m.PostId)
+		i = encodeVarintComment(dAtA, i, uint64(len(m.PostId)))
+		i--
+		dAtA[i] = 0xa
+	}
 	return len(dAtA) - i, nil
 }
 
-func (m *Message) Marshal() (dAtA []byte, err error) {
+func (m *Empty) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -594,12 +764,12 @@ func (m *Message) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *Message) MarshalTo(dAtA []byte) (int, error) {
+func (m *Empty) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *Message) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *Empty) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -635,6 +805,20 @@ func (m *GetCommentRes) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.XXX_unrecognized)
 		copy(dAtA[i:], m.XXX_unrecognized)
 	}
+	if len(m.Text) > 0 {
+		i -= len(m.Text)
+		copy(dAtA[i:], m.Text)
+		i = encodeVarintComment(dAtA, i, uint64(len(m.Text)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.UserId) > 0 {
+		i -= len(m.UserId)
+		copy(dAtA[i:], m.UserId)
+		i = encodeVarintComment(dAtA, i, uint64(len(m.UserId)))
+		i--
+		dAtA[i] = 0xa
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -655,6 +839,18 @@ func (m *CreateCommentReq) Size() (n int) {
 	}
 	var l int
 	_ = l
+	l = len(m.PostId)
+	if l > 0 {
+		n += 1 + l + sovComment(uint64(l))
+	}
+	l = len(m.UserId)
+	if l > 0 {
+		n += 1 + l + sovComment(uint64(l))
+	}
+	l = len(m.Text)
+	if l > 0 {
+		n += 1 + l + sovComment(uint64(l))
+	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
 	}
@@ -667,6 +863,14 @@ func (m *GetCommentReq) Size() (n int) {
 	}
 	var l int
 	_ = l
+	l = len(m.PostId)
+	if l > 0 {
+		n += 1 + l + sovComment(uint64(l))
+	}
+	l = len(m.UserId)
+	if l > 0 {
+		n += 1 + l + sovComment(uint64(l))
+	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
 	}
@@ -679,6 +883,18 @@ func (m *UpdateCommentReq) Size() (n int) {
 	}
 	var l int
 	_ = l
+	l = len(m.PostId)
+	if l > 0 {
+		n += 1 + l + sovComment(uint64(l))
+	}
+	l = len(m.UserId)
+	if l > 0 {
+		n += 1 + l + sovComment(uint64(l))
+	}
+	l = len(m.Text)
+	if l > 0 {
+		n += 1 + l + sovComment(uint64(l))
+	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
 	}
@@ -691,13 +907,21 @@ func (m *DeleteCommentReq) Size() (n int) {
 	}
 	var l int
 	_ = l
+	l = len(m.PostId)
+	if l > 0 {
+		n += 1 + l + sovComment(uint64(l))
+	}
+	l = len(m.UserId)
+	if l > 0 {
+		n += 1 + l + sovComment(uint64(l))
+	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
 	}
 	return n
 }
 
-func (m *Message) Size() (n int) {
+func (m *Empty) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -715,6 +939,14 @@ func (m *GetCommentRes) Size() (n int) {
 	}
 	var l int
 	_ = l
+	l = len(m.UserId)
+	if l > 0 {
+		n += 1 + l + sovComment(uint64(l))
+	}
+	l = len(m.Text)
+	if l > 0 {
+		n += 1 + l + sovComment(uint64(l))
+	}
 	if m.XXX_unrecognized != nil {
 		n += len(m.XXX_unrecognized)
 	}
@@ -756,6 +988,102 @@ func (m *CreateCommentReq) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: CreateCommentReq: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PostId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowComment
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthComment
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthComment
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PostId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowComment
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthComment
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthComment
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UserId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Text", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowComment
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthComment
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthComment
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Text = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipComment(dAtA[iNdEx:])
@@ -807,6 +1135,70 @@ func (m *GetCommentReq) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: GetCommentReq: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PostId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowComment
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthComment
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthComment
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PostId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowComment
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthComment
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthComment
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UserId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipComment(dAtA[iNdEx:])
@@ -858,6 +1250,102 @@ func (m *UpdateCommentReq) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: UpdateCommentReq: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PostId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowComment
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthComment
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthComment
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PostId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowComment
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthComment
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthComment
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UserId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Text", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowComment
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthComment
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthComment
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Text = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipComment(dAtA[iNdEx:])
@@ -909,6 +1397,70 @@ func (m *DeleteCommentReq) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: DeleteCommentReq: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PostId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowComment
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthComment
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthComment
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PostId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowComment
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthComment
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthComment
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UserId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipComment(dAtA[iNdEx:])
@@ -931,7 +1483,7 @@ func (m *DeleteCommentReq) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *Message) Unmarshal(dAtA []byte) error {
+func (m *Empty) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -954,10 +1506,10 @@ func (m *Message) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: Message: wiretype end group for non-group")
+			return fmt.Errorf("proto: Empty: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: Message: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: Empty: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -1011,6 +1563,70 @@ func (m *GetCommentRes) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: GetCommentRes: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowComment
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthComment
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthComment
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UserId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Text", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowComment
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthComment
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthComment
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Text = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipComment(dAtA[iNdEx:])

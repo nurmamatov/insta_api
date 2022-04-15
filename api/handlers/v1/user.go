@@ -1,9 +1,13 @@
 package v1
 
 import (
+	"context"
 	"fmt"
 	"net/http"
-	"tasks/Instagram_clone/insta_api/api/handlers/models"
+
+	// "tasks/Instagram_clone/insta_api/api/handlers/user_proto"
+	pu "tasks/Instagram_clone/insta_api/genproto/user_proto"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,25 +18,30 @@ import (
 // @Tags User
 // @Accept json
 // @Produce json
-// @Param todo body models.CreateUserReq true "Register User"
-// @Success 201 {object} models.GetUserRes
-// @Failure 401 {object} models.Err
-// @Failure 500 {object} models.Err
+// @Param todo body user_proto.CreateUserReq true "Register User"
+// @Success 201 {object} user_proto.GetUserRes
+// @Failure 401 {object} user_proto.Err
+// @Failure 500 {object} user_proto.Err
 // @Router /register [POST]
 func (h *handlerV1) RegisterUser(c *gin.Context) {
-	body := models.CreateUserReq{}
+	body := pu.CreateUserReq{}
+	
 	err := c.ShouldBindJSON(&body)
-	fmt.Println(body)
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusOK, gin.H{
-			"message": "salome emas",
-		})
+		c.JSON(http.StatusBadRequest, gin.H{"Error": "Error parse json"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"message": "salom",
-	})
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	defer cancel()
+	fmt.Println(body)
+	res, err := h.serviceManager.UserService().CreateUser(ctx, &body)
+	if err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusBadRequest, err)
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // LogInAs godoc
@@ -41,13 +50,13 @@ func (h *handlerV1) RegisterUser(c *gin.Context) {
 // @Tags User
 // @Accept json
 // @Produce json
-// @Param todo body models.LoginReq true "Login"
-// @Success 201 {object} models.GetUserRes
-// @Failure 401 {object} models.Err
-// @Failure 500 {object} models.Err
+// @Param todo body user_proto.LoginReq true "Login"
+// @Success 201 {object} user_proto.GetUserRes
+// @Failure 401 {object} user_proto.Err
+// @Failure 500 {object} user_proto.Err
 // @Router /login [GET]
 func (h *handlerV1) Login(c *gin.Context) {
-	body := models.LoginReq{}
+	body := pu.LoginReq{}
 	err := c.ShouldBindJSON(&body)
 	fmt.Println(body)
 	if err != nil {
@@ -68,13 +77,13 @@ func (h *handlerV1) Login(c *gin.Context) {
 // @Tags User
 // @Accept json
 // @Produce json
-// @Param todo body models.UpdateUserReq true "Update"
-// @Success 201 {object} models.GetUserRes
-// @Failure 401 {object} models.Err
-// @Failure 500 {object} models.Err
+// @Param todo body user_proto.UpdateUserReq true "Update"
+// @Success 201 {object} user_proto.GetUserRes
+// @Failure 401 {object} user_proto.Err
+// @Failure 500 {object} user_proto.Err
 // @Router /user/update [PUT]
 func (h *handlerV1) Update(c *gin.Context) {
-	body := models.UpdateUserReq{}
+	body := pu.UpdateUserReq{}
 	err := c.ShouldBindJSON(&body)
 	fmt.Println(body)
 	if err != nil {
@@ -95,13 +104,13 @@ func (h *handlerV1) Update(c *gin.Context) {
 // @Tags User
 // @Accept json
 // @Produce json
-// @Param todo body models.DeleteUserReq true "Delete"
-// @Success 201 {object} models.Message
-// @Failure 401 {object} models.Err
-// @Failure 500 {object} models.Err
+// @Param todo body user_proto.DeleteUserReq true "Delete"
+// @Success 201 {object} user_proto.Message
+// @Failure 401 {object} user_proto.Err
+// @Failure 500 {object} user_proto.Err
 // @Router /user/delete [PUT]
 func (h *handlerV1) Delete(c *gin.Context) {
-	body := models.DeleteUserReq{}
+	body := pu.DeleteUserReq{}
 	err := c.ShouldBindJSON(&body)
 	fmt.Println(body)
 	if err != nil {
@@ -122,13 +131,13 @@ func (h *handlerV1) Delete(c *gin.Context) {
 // @Tags User
 // @Accept json
 // @Produce json
-// @Param todo body models.SearchUserReq true "Search"
-// @Success 201 {object} models.UserList
-// @Failure 401 {object} models.Err
-// @Failure 500 {object} models.Err
+// @Param todo body user_proto.SearchUserReq true "Search"
+// @Success 201 {object} user_proto.UserList
+// @Failure 401 {object} user_proto.Err
+// @Failure 500 {object} user_proto.Err
 // @Router /search/user [GET]
 func (h *handlerV1) Search(c *gin.Context) {
-	body := models.SearchUserReq{}
+	body := pu.SearchUserReq{}
 	err := c.ShouldBindJSON(&body)
 	fmt.Println(body)
 	if err != nil {
@@ -149,13 +158,13 @@ func (h *handlerV1) Search(c *gin.Context) {
 // @Tags User
 // @Accept json
 // @Produce json
-// @Param todo body models.GetUserReq true "Get User Posts"
-// @Success 201 {object} models.GetUserRes
-// @Failure 401 {object} models.Err
-// @Failure 500 {object} models.Err
+// @Param todo body user_proto.GetUserReq true "Get User Posts"
+// @Success 201 {object} user_proto.GetUserRes
+// @Failure 401 {object} user_proto.Err
+// @Failure 500 {object} user_proto.Err
 // @Router /user/get [GET]
 func (h *handlerV1) GetUserPosts(c *gin.Context) {
-	body := models.GetUserReq{}
+	body := pu.GetUserReq{}
 	err := c.ShouldBindJSON(&body)
 	fmt.Println(body)
 	if err != nil {

@@ -7,37 +7,40 @@ import (
 )
 
 type Config struct {
-	Enivorentment    string
+	Services Services
+	Lpe      ConfigP
+}
+type Services struct {
+	PostServiceHost string
+	PostServicePort int
 
-	PostServiceHost  string
-	PostServicePort  int
+	UserServiceHost string
+	UserServicePort int
 
-	UserServiceHost  string
-	UserServicePort  int
-	
 	CommentServiceHost string
 	CommentServicePort int
-
-	LogLevel string
-	Port string
-
+}
+type ConfigP struct {
+	Enivorentment string
+	LogLevel      string
+	Port          string
 }
 
-func Load() Config {
+func LoadConfig() Config {
 	c := Config{}
 
-	c.Enivorentment = cast.ToString(getOrReturnDefault("ENVIRONMENT", "develop"))
-	c.LogLevel = cast.ToString(getOrReturnDefault("LOG_LEVEL", "debug"))
-	c.Port = cast.ToString(getOrReturnDefault("HTTP_PORT", ":8080"))
-	
-	c.PostServiceHost = cast.ToString(getOrReturnDefault("Post_SERVICE_HOST", "post-services"))
-	c.PostServicePort = cast.ToInt(getOrReturnDefault("Post_SERVICE_PORT", 9000))
-	
-	c.UserServiceHost = cast.ToString(getOrReturnDefault("USER_SERVICE_HOST", "assignee-services"))
-	c.UserServicePort = cast.ToInt(getOrReturnDefault("USER_SERVICE_PORT", 9002))
-	
-	c.CommentServiceHost = cast.ToString(getOrReturnDefault("COMMENT_SERVICE_HOST", "comment_service"))
-	c.CommentServicePort = cast.ToInt(getOrReturnDefault("COMMENT_SERVICE_PORT", 9001))
+	c.Lpe.Enivorentment = cast.ToString(getOrReturnDefault("ENVIRONMENT", "develop"))
+	c.Lpe.LogLevel = cast.ToString(getOrReturnDefault("LOG_LEVEL", "debug"))
+	c.Lpe.Port = cast.ToString(getOrReturnDefault("HTTP_PORT", ":8080"))
+
+	c.Services.PostServiceHost = cast.ToString(getOrReturnDefault("POST_SERVICE_HOST", "post_services"))
+	c.Services.PostServicePort = cast.ToInt(getOrReturnDefault("POST_SERVICE_PORT", 9000))
+
+	c.Services.UserServiceHost = cast.ToString(getOrReturnDefault("USER_SERVICE_HOST", "user_service"))
+	c.Services.UserServicePort = cast.ToInt(getOrReturnDefault("USER_SERVICE_PORT", 9002))
+
+	c.Services.CommentServiceHost = cast.ToString(getOrReturnDefault("COMMENT_SERVICE_HOST", "comment_service"))
+	c.Services.CommentServicePort = cast.ToInt(getOrReturnDefault("COMMENT_SERVICE_PORT", 9001))
 
 	return c
 }

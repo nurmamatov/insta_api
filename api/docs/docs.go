@@ -115,7 +115,7 @@ var doc = `{
                 }
             }
         },
-        "/comment/get": {
+        "/comment/gett": {
             "get": {
                 "description": "This method Get comment",
                 "consumes": [
@@ -273,7 +273,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.LoginReq"
+                            "$ref": "#/definitions/user_proto.LoginReq"
                         }
                     }
                 ],
@@ -281,19 +281,19 @@ var doc = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.GetUserRes"
+                            "$ref": "#/definitions/user_proto.GetUserRes"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/models.Err"
+                            "$ref": "#/definitions/user_proto.Err"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/models.Err"
+                            "$ref": "#/definitions/user_proto.Err"
                         }
                     }
                 }
@@ -593,7 +593,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.CreateUserReq"
+                            "$ref": "#/definitions/user_proto.CreateUserReq"
                         }
                     }
                 ],
@@ -601,19 +601,19 @@ var doc = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.GetUserRes"
+                            "$ref": "#/definitions/user_proto.GetUserRes"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/models.Err"
+                            "$ref": "#/definitions/user_proto.Err"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/models.Err"
+                            "$ref": "#/definitions/user_proto.Err"
                         }
                     }
                 }
@@ -639,7 +639,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.SearchUserReq"
+                            "$ref": "#/definitions/user_proto.SearchUserReq"
                         }
                     }
                 ],
@@ -647,19 +647,19 @@ var doc = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.UserList"
+                            "$ref": "#/definitions/user_proto.UserList"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/models.Err"
+                            "$ref": "#/definitions/user_proto.Err"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/models.Err"
+                            "$ref": "#/definitions/user_proto.Err"
                         }
                     }
                 }
@@ -685,7 +685,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.DeleteUserReq"
+                            "$ref": "#/definitions/user_proto.DeleteUserReq"
                         }
                     }
                 ],
@@ -693,19 +693,19 @@ var doc = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.Message"
+                            "$ref": "#/definitions/user_proto.Message"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/models.Err"
+                            "$ref": "#/definitions/user_proto.Err"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/models.Err"
+                            "$ref": "#/definitions/user_proto.Err"
                         }
                     }
                 }
@@ -731,7 +731,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.GetUserReq"
+                            "$ref": "#/definitions/user_proto.GetUserReq"
                         }
                     }
                 ],
@@ -739,19 +739,19 @@ var doc = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.GetUserRes"
+                            "$ref": "#/definitions/user_proto.GetUserRes"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/models.Err"
+                            "$ref": "#/definitions/user_proto.Err"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/models.Err"
+                            "$ref": "#/definitions/user_proto.Err"
                         }
                     }
                 }
@@ -777,7 +777,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.UpdateUserReq"
+                            "$ref": "#/definitions/user_proto.UpdateUserReq"
                         }
                     }
                 ],
@@ -785,19 +785,19 @@ var doc = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.GetUserRes"
+                            "$ref": "#/definitions/user_proto.GetUserRes"
                         }
                     },
                     "401": {
                         "description": "Unauthorized",
                         "schema": {
-                            "$ref": "#/definitions/models.Err"
+                            "$ref": "#/definitions/user_proto.Err"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/models.Err"
+                            "$ref": "#/definitions/user_proto.Err"
                         }
                     }
                 }
@@ -844,35 +844,6 @@ var doc = `{
                 }
             }
         },
-        "models.CreateUserReq": {
-            "type": "object",
-            "properties": {
-                "email": {
-                    "type": "string"
-                },
-                "first_name": {
-                    "type": "string"
-                },
-                "gender": {
-                    "type": "boolean"
-                },
-                "last_name": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                },
-                "phonoe": {
-                    "type": "string"
-                },
-                "photo": {
-                    "type": "string"
-                },
-                "username": {
-                    "type": "string"
-                }
-            }
-        },
         "models.DeleteCommentReq": {
             "type": "object",
             "properties": {
@@ -888,17 +859,6 @@ var doc = `{
             "type": "object",
             "properties": {
                 "post_id": {
-                    "type": "string"
-                },
-                "user_id": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.DeleteUserReq": {
-            "type": "object",
-            "properties": {
-                "password": {
                     "type": "string"
                 },
                 "user_id": {
@@ -969,14 +929,6 @@ var doc = `{
                     "type": "string"
                 },
                 "usr_id": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.GetUserReq": {
-            "type": "object",
-            "properties": {
-                "user_id": {
                     "type": "string"
                 }
             }
@@ -1057,29 +1009,10 @@ var doc = `{
                 }
             }
         },
-        "models.LoginReq": {
-            "type": "object",
-            "properties": {
-                "password": {
-                    "type": "string"
-                },
-                "username": {
-                    "type": "string"
-                }
-            }
-        },
         "models.Message": {
             "type": "object",
             "properties": {
                 "message": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.SearchUserReq": {
-            "type": "object",
-            "properties": {
-                "search": {
                     "type": "string"
                 }
             }
@@ -1112,7 +1045,7 @@ var doc = `{
                 }
             }
         },
-        "models.UpdateUserReq": {
+        "user_proto.CreateUserReq": {
             "type": "object",
             "properties": {
                 "email": {
@@ -1130,7 +1063,63 @@ var doc = `{
                 "password": {
                     "type": "string"
                 },
-                "phonoe": {
+                "phone": {
+                    "type": "string"
+                },
+                "photo": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "user_proto.DeleteUserReq": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "user_proto.Err": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "user_proto.GetUserReq": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "user_proto.GetUserRes": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "boolean"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "phone": {
                     "type": "string"
                 },
                 "photo": {
@@ -1144,13 +1133,80 @@ var doc = `{
                 }
             }
         },
-        "models.UserList": {
+        "user_proto.LoginReq": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "user_proto.Message": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "user_proto.SearchRes": {
+            "type": "object",
+            "properties": {
+                "user_id": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "user_proto.SearchUserReq": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "user_proto.UpdateUserReq": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "gender": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "photo": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "user_proto.UserList": {
             "type": "object",
             "properties": {
                 "users": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/models.GetUserRes"
+                        "$ref": "#/definitions/user_proto.SearchRes"
                     }
                 }
             }

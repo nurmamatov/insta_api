@@ -13,7 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Option struct {
+type Options struct {
 	Conf           config.Config
 	Logger         logger.Logger
 	ServiceManager services.IServiceManager
@@ -23,7 +23,7 @@ type Option struct {
 // @version 1.0
 // @description this is a user, post and comment services api
 
-func New(option Option) *gin.Engine {
+func NewRouter(option Options) *gin.Engine {
 	router := gin.New()
 
 	router.Use(gin.Logger())
@@ -52,7 +52,6 @@ func New(option Option) *gin.Engine {
 	task.DELETE("/post/like", handlerV1.DeleteLike)
 
 	task.POST("/comment/create", handlerV1.CreateComment)
-	task.GET("/comment/get", handlerV1.GetComment)
 	task.PUT("/comment/update", handlerV1.UpdateComment)
 	task.PUT("/comment/delete", handlerV1.DeleteComment)
 

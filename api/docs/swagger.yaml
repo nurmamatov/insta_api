@@ -25,25 +25,6 @@ definitions:
       user_id:
         type: string
     type: object
-  models.CreateUserReq:
-    properties:
-      email:
-        type: string
-      first_name:
-        type: string
-      gender:
-        type: boolean
-      last_name:
-        type: string
-      password:
-        type: string
-      phonoe:
-        type: string
-      photo:
-        type: string
-      username:
-        type: string
-    type: object
   models.DeleteCommentReq:
     properties:
       post_id:
@@ -54,13 +35,6 @@ definitions:
   models.DeletePostReq:
     properties:
       post_id:
-        type: string
-      user_id:
-        type: string
-    type: object
-  models.DeleteUserReq:
-    properties:
-      password:
         type: string
       user_id:
         type: string
@@ -106,11 +80,6 @@ definitions:
       title:
         type: string
       usr_id:
-        type: string
-    type: object
-  models.GetUserReq:
-    properties:
-      user_id:
         type: string
     type: object
   models.GetUserRes:
@@ -162,21 +131,9 @@ definitions:
           $ref: '#/definitions/models.GetPostRes'
         type: array
     type: object
-  models.LoginReq:
-    properties:
-      password:
-        type: string
-      username:
-        type: string
-    type: object
   models.Message:
     properties:
       message:
-        type: string
-    type: object
-  models.SearchUserReq:
-    properties:
-      search:
         type: string
     type: object
   models.UpdateCommentReq:
@@ -197,7 +154,7 @@ definitions:
       title:
         type: string
     type: object
-  models.UpdateUserReq:
+  user_proto.CreateUserReq:
     properties:
       email:
         type: string
@@ -209,7 +166,43 @@ definitions:
         type: string
       password:
         type: string
-      phonoe:
+      phone:
+        type: string
+      photo:
+        type: string
+      username:
+        type: string
+    type: object
+  user_proto.DeleteUserReq:
+    properties:
+      password:
+        type: string
+      user_id:
+        type: string
+    type: object
+  user_proto.Err:
+    properties:
+      error:
+        type: string
+    type: object
+  user_proto.GetUserReq:
+    properties:
+      username:
+        type: string
+    type: object
+  user_proto.GetUserRes:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      first_name:
+        type: string
+      gender:
+        type: boolean
+      last_name:
+        type: string
+      phone:
         type: string
       photo:
         type: string
@@ -218,11 +211,54 @@ definitions:
       username:
         type: string
     type: object
-  models.UserList:
+  user_proto.LoginReq:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  user_proto.Message:
+    properties:
+      message:
+        type: string
+    type: object
+  user_proto.SearchRes:
+    properties:
+      user_id:
+        type: string
+      username:
+        type: string
+    type: object
+  user_proto.SearchUserReq:
+    properties:
+      username:
+        type: string
+    type: object
+  user_proto.UpdateUserReq:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      gender:
+        type: string
+      last_name:
+        type: string
+      phone:
+        type: string
+      photo:
+        type: string
+      user_id:
+        type: string
+      username:
+        type: string
+    type: object
+  user_proto.UserList:
     properties:
       users:
         items:
-          $ref: '#/definitions/models.GetUserRes'
+          $ref: '#/definitions/user_proto.SearchRes'
         type: array
     type: object
 info:
@@ -290,7 +326,7 @@ paths:
       summary: Delete Comment
       tags:
       - Comment
-  /comment/get:
+  /comment/gett:
     get:
       consumes:
       - application/json
@@ -391,22 +427,22 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.LoginReq'
+          $ref: '#/definitions/user_proto.LoginReq'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/models.GetUserRes'
+            $ref: '#/definitions/user_proto.GetUserRes'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/models.Err'
+            $ref: '#/definitions/user_proto.Err'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/models.Err'
+            $ref: '#/definitions/user_proto.Err'
       summary: Login User
       tags:
       - User
@@ -600,22 +636,22 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.CreateUserReq'
+          $ref: '#/definitions/user_proto.CreateUserReq'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/models.GetUserRes'
+            $ref: '#/definitions/user_proto.GetUserRes'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/models.Err'
+            $ref: '#/definitions/user_proto.Err'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/models.Err'
+            $ref: '#/definitions/user_proto.Err'
       summary: Create New User
       tags:
       - User
@@ -630,22 +666,22 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.SearchUserReq'
+          $ref: '#/definitions/user_proto.SearchUserReq'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/models.UserList'
+            $ref: '#/definitions/user_proto.UserList'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/models.Err'
+            $ref: '#/definitions/user_proto.Err'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/models.Err'
+            $ref: '#/definitions/user_proto.Err'
       summary: Search User
       tags:
       - User
@@ -660,22 +696,22 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.DeleteUserReq'
+          $ref: '#/definitions/user_proto.DeleteUserReq'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/models.Message'
+            $ref: '#/definitions/user_proto.Message'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/models.Err'
+            $ref: '#/definitions/user_proto.Err'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/models.Err'
+            $ref: '#/definitions/user_proto.Err'
       summary: Delete User
       tags:
       - User
@@ -690,22 +726,22 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.GetUserReq'
+          $ref: '#/definitions/user_proto.GetUserReq'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/models.GetUserRes'
+            $ref: '#/definitions/user_proto.GetUserRes'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/models.Err'
+            $ref: '#/definitions/user_proto.Err'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/models.Err'
+            $ref: '#/definitions/user_proto.Err'
       summary: Get User Posts
       tags:
       - User
@@ -720,22 +756,22 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.UpdateUserReq'
+          $ref: '#/definitions/user_proto.UpdateUserReq'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/models.GetUserRes'
+            $ref: '#/definitions/user_proto.GetUserRes'
         "401":
           description: Unauthorized
           schema:
-            $ref: '#/definitions/models.Err'
+            $ref: '#/definitions/user_proto.Err'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/models.Err'
+            $ref: '#/definitions/user_proto.Err'
       summary: Update User
       tags:
       - User

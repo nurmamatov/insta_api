@@ -15,10 +15,10 @@ type LoginReq struct {
 	Possword string `json:"password"`
 }
 type SearchUserReq struct {
-	FromUsername string `json:"search"`
+	FromUsername string `json:"username"`
 }
 type GetUserReq struct {
-	UserId string `json:"user_id"`
+	Username string `json:"username"`
 }
 type UpdateUserReq struct {
 	UserId    string `json:"user_id"`
@@ -28,8 +28,11 @@ type UpdateUserReq struct {
 	Phone     string `json:"phonoe"`
 	Email     string `json:"email"`
 	Gender    bool   `json:"gender"`
-	Possword  string `json:"password"`
 	Photo     string `json:"photo"`
+}
+type UpdatePass struct {
+	OldPassword string `json:"old_password"`
+	NewPassword string `json:"new_password"`
 }
 type DeleteUserReq struct {
 	UserId   string `json:"user_id"`
@@ -49,12 +52,13 @@ type GetUserRes struct {
 	Gender    bool   `json:"gender"`
 	CreatedAt string `json:"created_at"`
 }
+type SearchRes struct {
+	UserId   string `json:"user_id"`
+	Username string `json:"username"`
+}
 type UserList struct {
-	Users []GetUserRes `json:"users"`
+	Users []SearchRes `json:"users"`
 }
 type Err struct {
 	Error string `json:"error"`
-}
-type ListUserssRes struct {
-	Posts []GetUserRes `json:"posts"`
 }

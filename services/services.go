@@ -25,7 +25,17 @@ type serviceManager struct {
 	commentService pc.CommentServiceClient
 }
 
-func NewServiceManager(conf *config.Config) (IServiceManager, error) {
+func (s *serviceManager) PostService() pp.PostServiceClient {
+	return s.postService
+}
+func (s *serviceManager) UserService() pu.UserServiceClient {
+	return s.userService
+}
+func (s *serviceManager) CommentService() pc.CommentServiceClient {
+	return s.commentService
+}
+
+func NewServiceManager(conf *config.Services) (IServiceManager, error) {
 	resolver.SetDefaultScheme("dns")
 
 	connPost, err := grpc.Dial(
@@ -41,6 +51,7 @@ func NewServiceManager(conf *config.Config) (IServiceManager, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	connComment, err := grpc.Dial(
 		fmt.Sprintf("%s:%d", conf.CommentServiceHost, conf.CommentServicePort),
 		grpc.WithTransportCredentials(insecure.NewCredentials()))
@@ -54,14 +65,4 @@ func NewServiceManager(conf *config.Config) (IServiceManager, error) {
 	}
 
 	return serviceManager, nil
-}
-
-func (s *serviceManager) PostService() pp.PostServiceClient {
-	return s.postService
-}
-func (s *serviceManager) UserService() pu.UserServiceClient {
-	return s.userService
-}
-func (s *serviceManager) CommentService() pc.CommentServiceClient {
-	return s.commentService
 }
