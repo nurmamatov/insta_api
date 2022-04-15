@@ -42,6 +42,7 @@ func NewRouter(option Options) *gin.Engine {
 	task.PUT("/user/delete", handlerV1.Delete)
 	task.GET("/search/user", handlerV1.Search)
 	task.GET("/user/get", handlerV1.GetUserPosts)
+	task.PUT("/user/password", handlerV1.ChangePassword)
 
 	task.POST("/post/create", handlerV1.CreatePost)
 	task.GET("/post/get", handlerV1.GetPost)
