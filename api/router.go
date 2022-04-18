@@ -58,5 +58,6 @@ func NewRouter(option Options) *gin.Engine {
 
 	url := ginSwagger.URL("swagger/doc.json")
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler, url))
+	
 	return router
 }
