@@ -43,7 +43,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.CreateCommentReq"
+                            "$ref": "#/definitions/comment_proto.CreateCommentReq"
                         }
                     }
                 ],
@@ -51,7 +51,7 @@ var doc = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.GetCommentRes"
+                            "$ref": "#/definitions/comment_proto.Res"
                         }
                     },
                     "401": {
@@ -89,7 +89,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.DeleteCommentReq"
+                            "$ref": "#/definitions/comment_proto.DeleteCommentReq"
                         }
                     }
                 ],
@@ -97,53 +97,7 @@ var doc = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.Empty"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/models.Err"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/models.Err"
-                        }
-                    }
-                }
-            }
-        },
-        "/comment/gett": {
-            "get": {
-                "description": "This method Get comment",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Comment"
-                ],
-                "summary": "Get Comment",
-                "parameters": [
-                    {
-                        "description": "Get Comment",
-                        "name": "todo",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.GetCommentReq"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/models.GetCommentRes"
+                            "$ref": "#/definitions/comment_proto.Empty"
                         }
                     },
                     "401": {
@@ -181,7 +135,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.UpdateCommentReq"
+                            "$ref": "#/definitions/comment_proto.UpdateCommentReq"
                         }
                     }
                 ],
@@ -189,7 +143,7 @@ var doc = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.GetCommentRes"
+                            "$ref": "#/definitions/comment_proto.Res"
                         }
                     },
                     "401": {
@@ -207,7 +161,7 @@ var doc = `{
                 }
             }
         },
-        "/list/user/posts": {
+        "/list/{id}/posts": {
             "get": {
                 "description": "This method for list user posts",
                 "consumes": [
@@ -222,20 +176,18 @@ var doc = `{
                 "summary": "List user posts",
                 "parameters": [
                     {
-                        "description": "List posts",
-                        "name": "todo",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.ListUserPosts"
-                        }
+                        "type": "string",
+                        "description": "user_id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.ListPostsRes"
+                            "$ref": "#/definitions/post_proto.ListPostsRes"
                         }
                     },
                     "401": {
@@ -254,7 +206,7 @@ var doc = `{
             }
         },
         "/login": {
-            "get": {
+            "put": {
                 "description": "This method for Login",
                 "consumes": [
                     "application/json"
@@ -268,7 +220,7 @@ var doc = `{
                 "summary": "Login User",
                 "parameters": [
                     {
-                        "description": "Login",
+                        "description": "Login User",
                         "name": "todo",
                         "in": "body",
                         "required": true,
@@ -319,7 +271,7 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.CreatePostReq"
+                            "$ref": "#/definitions/post_proto.CreatePostReq"
                         }
                     }
                 ],
@@ -327,7 +279,7 @@ var doc = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/models.GetPostRes"
+                            "$ref": "#/definitions/post_proto.GetPostRes"
                         }
                     },
                     "401": {
@@ -365,15 +317,15 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.DeletePostReq"
+                            "$ref": "#/definitions/post_proto.DeletePostReq"
                         }
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Message"
+                            "$ref": "#/definitions/post_proto.Message"
                         }
                     },
                     "401": {
@@ -392,7 +344,7 @@ var doc = `{
             }
         },
         "/post/get": {
-            "get": {
+            "put": {
                 "description": "This method for Get Post",
                 "consumes": [
                     "application/json"
@@ -411,15 +363,15 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.GetPostReq"
+                            "$ref": "#/definitions/post_proto.GetPostReq"
                         }
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.GetUserRes"
+                            "$ref": "#/definitions/post_proto.GetPostRes"
                         }
                     },
                     "401": {
@@ -457,15 +409,15 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.LikePostReq"
+                            "$ref": "#/definitions/post_proto.LikePostReq"
                         }
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Bool"
+                            "$ref": "#/definitions/post_proto.Bool"
                         }
                     },
                     "401": {
@@ -501,15 +453,15 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.LikeDeleteReq"
+                            "$ref": "#/definitions/post_proto.LikeDeleteReq"
                         }
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.Bool"
+                            "$ref": "#/definitions/post_proto.Bool"
                         }
                     },
                     "401": {
@@ -547,15 +499,15 @@ var doc = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.UpdatePostReq"
+                            "$ref": "#/definitions/post_proto.UpdatePostReq"
                         }
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/models.GetPostRes"
+                            "$ref": "#/definitions/post_proto.GetPostRes"
                         }
                     },
                     "401": {
@@ -619,7 +571,7 @@ var doc = `{
                 }
             }
         },
-        "/search/user": {
+        "/search/{username}": {
             "get": {
                 "description": "This method search from users",
                 "consumes": [
@@ -634,18 +586,16 @@ var doc = `{
                 "summary": "Search User",
                 "parameters": [
                     {
-                        "description": "Search",
-                        "name": "todo",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/user_proto.SearchUserReq"
-                        }
+                        "type": "string",
+                        "description": "Username",
+                        "name": "username",
+                        "in": "path",
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/user_proto.UserList"
                         }
@@ -690,8 +640,8 @@ var doc = `{
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/user_proto.Message"
                         }
@@ -711,9 +661,9 @@ var doc = `{
                 }
             }
         },
-        "/user/get": {
-            "get": {
-                "description": "This method for Get User Posts",
+        "/user/password": {
+            "put": {
+                "description": "This method for Update password",
                 "consumes": [
                     "application/json"
                 ],
@@ -723,23 +673,23 @@ var doc = `{
                 "tags": [
                     "User"
                 ],
-                "summary": "Get User Posts",
+                "summary": "Update Password",
                 "parameters": [
                     {
-                        "description": "Get User Posts",
+                        "description": "Password update",
                         "name": "todo",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/user_proto.GetUserReq"
+                            "$ref": "#/definitions/user_proto.UpdatePass"
                         }
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "202": {
+                        "description": "Accepted",
                         "schema": {
-                            "$ref": "#/definitions/user_proto.GetUserRes"
+                            "$ref": "#/definitions/user_proto.Message"
                         }
                     },
                     "401": {
@@ -782,8 +732,52 @@ var doc = `{
                     }
                 ],
                 "responses": {
-                    "201": {
-                        "description": "Created",
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/user_proto.GetUserRes"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/user_proto.Err"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/user_proto.Err"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{username}": {
+            "get": {
+                "description": "This method Get User posts",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get Posts",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Username",
+                        "name": "username",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/user_proto.GetUserRes"
                         }
@@ -805,15 +799,7 @@ var doc = `{
         }
     },
     "definitions": {
-        "models.Bool": {
-            "type": "object",
-            "properties": {
-                "check_like": {
-                    "type": "boolean"
-                }
-            }
-        },
-        "models.CreateCommentReq": {
+        "comment_proto.CreateCommentReq": {
             "type": "object",
             "properties": {
                 "post_id": {
@@ -827,16 +813,10 @@ var doc = `{
                 }
             }
         },
-        "models.CreatePostReq": {
+        "comment_proto.DeleteCommentReq": {
             "type": "object",
             "properties": {
-                "description": {
-                    "type": "string"
-                },
-                "image": {
-                    "type": "string"
-                },
-                "title": {
+                "comment_id": {
                     "type": "string"
                 },
                 "user_id": {
@@ -844,30 +824,45 @@ var doc = `{
                 }
             }
         },
-        "models.DeleteCommentReq": {
-            "type": "object",
-            "properties": {
-                "post_id": {
-                    "type": "string"
-                },
-                "user_id": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.DeletePostReq": {
-            "type": "object",
-            "properties": {
-                "post_id": {
-                    "type": "string"
-                },
-                "user_id": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.Empty": {
+        "comment_proto.Empty": {
             "type": "object"
+        },
+        "comment_proto.Res": {
+            "type": "object",
+            "properties": {
+                "comment_id": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "post_id": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "comment_proto.UpdateCommentReq": {
+            "type": "object",
+            "properties": {
+                "comment_id": {
+                    "type": "string"
+                },
+                "post_id": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
         },
         "models.Err": {
             "type": "object",
@@ -877,20 +872,20 @@ var doc = `{
                 }
             }
         },
-        "models.GetCommentReq": {
+        "post_proto.Bool": {
             "type": "object",
             "properties": {
-                "post_id": {
-                    "type": "string"
-                },
-                "user_id": {
-                    "type": "string"
+                "result": {
+                    "type": "boolean"
                 }
             }
         },
-        "models.GetCommentRes": {
+        "post_proto.Comment": {
             "type": "object",
             "properties": {
+                "comment_id": {
+                    "type": "string"
+                },
                 "text": {
                     "type": "string"
                 },
@@ -899,7 +894,24 @@ var doc = `{
                 }
             }
         },
-        "models.GetPostReq": {
+        "post_proto.CreatePostReq": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "post_proto.DeletePostReq": {
             "type": "object",
             "properties": {
                 "post_id": {
@@ -910,17 +922,37 @@ var doc = `{
                 }
             }
         },
-        "models.GetPostRes": {
+        "post_proto.GetPostReq": {
+            "type": "object",
+            "properties": {
+                "post_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "post_proto.GetPostRes": {
             "type": "object",
             "properties": {
                 "check_like": {
                     "type": "boolean"
                 },
-                "desctiption": {
+                "comments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/post_proto.Comment"
+                    }
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "description": {
                     "type": "string"
                 },
                 "image": {
                     "type": "string"
+                },
+                "likes": {
+                    "type": "integer"
                 },
                 "post_id": {
                     "type": "string"
@@ -928,44 +960,12 @@ var doc = `{
                 "title": {
                     "type": "string"
                 },
-                "usr_id": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.GetUserRes": {
-            "type": "object",
-            "properties": {
-                "created_at": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "first_name": {
-                    "type": "string"
-                },
-                "gender": {
-                    "type": "boolean"
-                },
-                "last_name": {
-                    "type": "string"
-                },
-                "phonoe": {
-                    "type": "string"
-                },
-                "photo": {
-                    "type": "string"
-                },
                 "user_id": {
                     "type": "string"
-                },
-                "username": {
-                    "type": "string"
                 }
             }
         },
-        "models.LikeDeleteReq": {
+        "post_proto.LikeDeleteReq": {
             "type": "object",
             "properties": {
                 "post_id": {
@@ -976,7 +976,7 @@ var doc = `{
                 }
             }
         },
-        "models.LikePostReq": {
+        "post_proto.LikePostReq": {
             "type": "object",
             "properties": {
                 "post_id": {
@@ -987,29 +987,18 @@ var doc = `{
                 }
             }
         },
-        "models.ListPostsRes": {
+        "post_proto.ListPostsRes": {
             "type": "object",
             "properties": {
                 "posts": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/models.GetPostRes"
+                        "$ref": "#/definitions/post_proto.GetPostRes"
                     }
                 }
             }
         },
-        "models.ListUserPosts": {
-            "type": "object",
-            "properties": {
-                "posts": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/models.GetPostRes"
-                    }
-                }
-            }
-        },
-        "models.Message": {
+        "post_proto.Message": {
             "type": "object",
             "properties": {
                 "message": {
@@ -1017,21 +1006,7 @@ var doc = `{
                 }
             }
         },
-        "models.UpdateCommentReq": {
-            "type": "object",
-            "properties": {
-                "post_id": {
-                    "type": "string"
-                },
-                "text": {
-                    "type": "string"
-                },
-                "user_id": {
-                    "type": "string"
-                }
-            }
-        },
-        "models.UpdatePostReq": {
+        "post_proto.UpdatePostReq": {
             "type": "object",
             "properties": {
                 "description": {
@@ -1041,6 +1016,20 @@ var doc = `{
                     "type": "string"
                 },
                 "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "user_proto.Comment": {
+            "type": "object",
+            "properties": {
+                "comment_id": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "user_id": {
                     "type": "string"
                 }
             }
@@ -1093,14 +1082,6 @@ var doc = `{
                 }
             }
         },
-        "user_proto.GetUserReq": {
-            "type": "object",
-            "properties": {
-                "username": {
-                    "type": "string"
-                }
-            }
-        },
         "user_proto.GetUserRes": {
             "type": "object",
             "properties": {
@@ -1124,6 +1105,12 @@ var doc = `{
                 },
                 "photo": {
                     "type": "string"
+                },
+                "posts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/user_proto.Posts"
+                    }
                 },
                 "user_id": {
                     "type": "string"
@@ -1152,6 +1139,41 @@ var doc = `{
                 }
             }
         },
+        "user_proto.Posts": {
+            "type": "object",
+            "properties": {
+                "check_like": {
+                    "type": "boolean"
+                },
+                "comments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/user_proto.Comment"
+                    }
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "likes": {
+                    "type": "integer"
+                },
+                "post_id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
         "user_proto.SearchRes": {
             "type": "object",
             "properties": {
@@ -1163,10 +1185,16 @@ var doc = `{
                 }
             }
         },
-        "user_proto.SearchUserReq": {
+        "user_proto.UpdatePass": {
             "type": "object",
             "properties": {
-                "username": {
+                "newPassword": {
+                    "type": "string"
+                },
+                "oldPassword": {
+                    "type": "string"
+                },
+                "user_id": {
                     "type": "string"
                 }
             }

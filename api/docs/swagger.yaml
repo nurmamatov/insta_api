@@ -1,11 +1,6 @@
 basePath: /v1
 definitions:
-  models.Bool:
-    properties:
-      check_like:
-        type: boolean
-    type: object
-  models.CreateCommentReq:
+  comment_proto.CreateCommentReq:
     properties:
       post_id:
         type: string
@@ -14,144 +9,146 @@ definitions:
       user_id:
         type: string
     type: object
-  models.CreatePostReq:
+  comment_proto.DeleteCommentReq:
     properties:
-      description:
-        type: string
-      image:
-        type: string
-      title:
+      comment_id:
         type: string
       user_id:
         type: string
     type: object
-  models.DeleteCommentReq:
+  comment_proto.Empty:
+    type: object
+  comment_proto.Res:
     properties:
+      comment_id:
+        type: string
+      created_at:
+        type: string
       post_id:
         type: string
+      text:
+        type: string
       user_id:
         type: string
     type: object
-  models.DeletePostReq:
+  comment_proto.UpdateCommentReq:
     properties:
+      comment_id:
+        type: string
       post_id:
         type: string
+      text:
+        type: string
       user_id:
         type: string
-    type: object
-  models.Empty:
     type: object
   models.Err:
     properties:
       error:
         type: string
     type: object
-  models.GetCommentReq:
+  post_proto.Bool:
     properties:
-      post_id:
-        type: string
-      user_id:
-        type: string
+      result:
+        type: boolean
     type: object
-  models.GetCommentRes:
+  post_proto.Comment:
     properties:
+      comment_id:
+        type: string
       text:
         type: string
       user_id:
         type: string
     type: object
-  models.GetPostReq:
+  post_proto.CreatePostReq:
+    properties:
+      description:
+        type: string
+      image:
+        type: string
+      title:
+        type: string
+      user_id:
+        type: string
+    type: object
+  post_proto.DeletePostReq:
     properties:
       post_id:
         type: string
       user_id:
         type: string
     type: object
-  models.GetPostRes:
+  post_proto.GetPostReq:
+    properties:
+      post_id:
+        type: string
+    type: object
+  post_proto.GetPostRes:
     properties:
       check_like:
         type: boolean
-      desctiption:
+      comments:
+        items:
+          $ref: '#/definitions/post_proto.Comment'
+        type: array
+      created_at:
+        type: string
+      description:
         type: string
       image:
         type: string
+      likes:
+        type: integer
       post_id:
         type: string
       title:
         type: string
-      usr_id:
-        type: string
-    type: object
-  models.GetUserRes:
-    properties:
-      created_at:
-        type: string
-      email:
-        type: string
-      first_name:
-        type: string
-      gender:
-        type: boolean
-      last_name:
-        type: string
-      phonoe:
-        type: string
-      photo:
-        type: string
       user_id:
         type: string
-      username:
-        type: string
     type: object
-  models.LikeDeleteReq:
+  post_proto.LikeDeleteReq:
     properties:
       post_id:
         type: string
       user_id:
         type: string
     type: object
-  models.LikePostReq:
+  post_proto.LikePostReq:
     properties:
       post_id:
         type: string
       user_id:
         type: string
     type: object
-  models.ListPostsRes:
+  post_proto.ListPostsRes:
     properties:
       posts:
         items:
-          $ref: '#/definitions/models.GetPostRes'
+          $ref: '#/definitions/post_proto.GetPostRes'
         type: array
     type: object
-  models.ListUserPosts:
-    properties:
-      posts:
-        items:
-          $ref: '#/definitions/models.GetPostRes'
-        type: array
-    type: object
-  models.Message:
+  post_proto.Message:
     properties:
       message:
         type: string
     type: object
-  models.UpdateCommentReq:
-    properties:
-      post_id:
-        type: string
-      text:
-        type: string
-      user_id:
-        type: string
-    type: object
-  models.UpdatePostReq:
+  post_proto.UpdatePostReq:
     properties:
       description:
         type: string
       post_id:
         type: string
       title:
+        type: string
+    type: object
+  user_proto.Comment:
+    properties:
+      comment_id:
+        type: string
+      text:
+        type: string
+      user_id:
         type: string
     type: object
   user_proto.CreateUserReq:
@@ -185,11 +182,6 @@ definitions:
       error:
         type: string
     type: object
-  user_proto.GetUserReq:
-    properties:
-      username:
-        type: string
-    type: object
   user_proto.GetUserRes:
     properties:
       created_at:
@@ -206,6 +198,10 @@ definitions:
         type: string
       photo:
         type: string
+      posts:
+        items:
+          $ref: '#/definitions/user_proto.Posts'
+        type: array
       user_id:
         type: string
       username:
@@ -223,6 +219,29 @@ definitions:
       message:
         type: string
     type: object
+  user_proto.Posts:
+    properties:
+      check_like:
+        type: boolean
+      comments:
+        items:
+          $ref: '#/definitions/user_proto.Comment'
+        type: array
+      created_at:
+        type: string
+      description:
+        type: string
+      image:
+        type: string
+      likes:
+        type: integer
+      post_id:
+        type: string
+      title:
+        type: string
+      user_id:
+        type: string
+    type: object
   user_proto.SearchRes:
     properties:
       user_id:
@@ -230,9 +249,13 @@ definitions:
       username:
         type: string
     type: object
-  user_proto.SearchUserReq:
+  user_proto.UpdatePass:
     properties:
-      username:
+      newPassword:
+        type: string
+      oldPassword:
+        type: string
+      user_id:
         type: string
     type: object
   user_proto.UpdateUserReq:
@@ -277,14 +300,14 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.CreateCommentReq'
+          $ref: '#/definitions/comment_proto.CreateCommentReq'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/models.GetCommentRes'
+            $ref: '#/definitions/comment_proto.Res'
         "401":
           description: Unauthorized
           schema:
@@ -307,14 +330,14 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.DeleteCommentReq'
+          $ref: '#/definitions/comment_proto.DeleteCommentReq'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/models.Empty'
+            $ref: '#/definitions/comment_proto.Empty'
         "401":
           description: Unauthorized
           schema:
@@ -324,36 +347,6 @@ paths:
           schema:
             $ref: '#/definitions/models.Err'
       summary: Delete Comment
-      tags:
-      - Comment
-  /comment/gett:
-    get:
-      consumes:
-      - application/json
-      description: This method Get comment
-      parameters:
-      - description: Get Comment
-        in: body
-        name: todo
-        required: true
-        schema:
-          $ref: '#/definitions/models.GetCommentReq'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            $ref: '#/definitions/models.GetCommentRes'
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/models.Err'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.Err'
-      summary: Get Comment
       tags:
       - Comment
   /comment/update:
@@ -367,14 +360,14 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.UpdateCommentReq'
+          $ref: '#/definitions/comment_proto.UpdateCommentReq'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/models.GetCommentRes'
+            $ref: '#/definitions/comment_proto.Res'
         "401":
           description: Unauthorized
           schema:
@@ -386,25 +379,24 @@ paths:
       summary: Update Comment
       tags:
       - Comment
-  /list/user/posts:
+  /list/{id}/posts:
     get:
       consumes:
       - application/json
       description: This method for list user posts
       parameters:
-      - description: List posts
-        in: body
-        name: todo
+      - description: user_id
+        in: path
+        name: id
         required: true
-        schema:
-          $ref: '#/definitions/models.ListUserPosts'
+        type: string
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
-            $ref: '#/definitions/models.ListPostsRes'
+            $ref: '#/definitions/post_proto.ListPostsRes'
         "401":
           description: Unauthorized
           schema:
@@ -417,12 +409,12 @@ paths:
       tags:
       - Post
   /login:
-    get:
+    put:
       consumes:
       - application/json
       description: This method for Login
       parameters:
-      - description: Login
+      - description: Login User
         in: body
         name: todo
         required: true
@@ -457,14 +449,14 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.CreatePostReq'
+          $ref: '#/definitions/post_proto.CreatePostReq'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/models.GetPostRes'
+            $ref: '#/definitions/post_proto.GetPostRes'
         "401":
           description: Unauthorized
           schema:
@@ -487,14 +479,14 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.DeletePostReq'
+          $ref: '#/definitions/post_proto.DeletePostReq'
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
-            $ref: '#/definitions/models.Message'
+            $ref: '#/definitions/post_proto.Message'
         "401":
           description: Unauthorized
           schema:
@@ -507,7 +499,7 @@ paths:
       tags:
       - Post
   /post/get:
-    get:
+    put:
       consumes:
       - application/json
       description: This method for Get Post
@@ -517,14 +509,14 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.GetPostReq'
+          $ref: '#/definitions/post_proto.GetPostReq'
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
-            $ref: '#/definitions/models.GetUserRes'
+            $ref: '#/definitions/post_proto.GetPostRes'
         "401":
           description: Unauthorized
           schema:
@@ -547,14 +539,14 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.LikeDeleteReq'
+          $ref: '#/definitions/post_proto.LikeDeleteReq'
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
-            $ref: '#/definitions/models.Bool'
+            $ref: '#/definitions/post_proto.Bool'
         "401":
           description: Unauthorized
           schema:
@@ -576,14 +568,14 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.LikePostReq'
+          $ref: '#/definitions/post_proto.LikePostReq'
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
-            $ref: '#/definitions/models.Bool'
+            $ref: '#/definitions/post_proto.Bool'
         "401":
           description: Unauthorized
           schema:
@@ -606,14 +598,14 @@ paths:
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/models.UpdatePostReq'
+          $ref: '#/definitions/post_proto.UpdatePostReq'
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
-            $ref: '#/definitions/models.GetPostRes'
+            $ref: '#/definitions/post_proto.GetPostRes'
         "401":
           description: Unauthorized
           schema:
@@ -655,23 +647,22 @@ paths:
       summary: Create New User
       tags:
       - User
-  /search/user:
+  /search/{username}:
     get:
       consumes:
       - application/json
       description: This method search from users
       parameters:
-      - description: Search
-        in: body
-        name: todo
+      - description: Username
+        in: path
+        name: username
         required: true
-        schema:
-          $ref: '#/definitions/user_proto.SearchUserReq'
+        type: string
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/user_proto.UserList'
         "401":
@@ -683,6 +674,35 @@ paths:
           schema:
             $ref: '#/definitions/user_proto.Err'
       summary: Search User
+      tags:
+      - User
+  /user/{username}:
+    get:
+      consumes:
+      - application/json
+      description: This method Get User posts
+      parameters:
+      - description: Username
+        in: path
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user_proto.GetUserRes'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/user_proto.Err'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/user_proto.Err'
+      summary: Get Posts
       tags:
       - User
   /user/delete:
@@ -700,8 +720,8 @@ paths:
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/user_proto.Message'
         "401":
@@ -715,25 +735,25 @@ paths:
       summary: Delete User
       tags:
       - User
-  /user/get:
-    get:
+  /user/password:
+    put:
       consumes:
       - application/json
-      description: This method for Get User Posts
+      description: This method for Update password
       parameters:
-      - description: Get User Posts
+      - description: Password update
         in: body
         name: todo
         required: true
         schema:
-          $ref: '#/definitions/user_proto.GetUserReq'
+          $ref: '#/definitions/user_proto.UpdatePass'
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "202":
+          description: Accepted
           schema:
-            $ref: '#/definitions/user_proto.GetUserRes'
+            $ref: '#/definitions/user_proto.Message'
         "401":
           description: Unauthorized
           schema:
@@ -742,7 +762,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/user_proto.Err'
-      summary: Get User Posts
+      summary: Update Password
       tags:
       - User
   /user/update:
@@ -760,8 +780,8 @@ paths:
       produces:
       - application/json
       responses:
-        "201":
-          description: Created
+        "200":
+          description: OK
           schema:
             $ref: '#/definitions/user_proto.GetUserRes'
         "401":
