@@ -1,9 +1,12 @@
 package v1
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 	"tasks/Instagram_clone/insta_api/api/handlers/models"
+	pp "tasks/Instagram_clone/insta_api/genproto/post_proto"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,25 +17,28 @@ import (
 // @Tags Post
 // @Accept json
 // @Produce json
-// @Param todo body models.CreatePostReq true "Create Post"
-// @Success 201 {object} models.GetPostRes
+// @Param todo body post_proto.CreatePostReq true "Create Post"
+// @Success 201 {object} post_proto.GetPostRes
 // @Failure 401 {object} models.Err
 // @Failure 500 {object} models.Err
 // @Router /post/create [POST]
 func (h *handlerV1) CreatePost(c *gin.Context) {
-	body := models.CreatePostReq{}
+	body := pp.CreatePostReq{}
 	err := c.ShouldBindJSON(&body)
-	fmt.Println(body)
 	if err != nil {
-		fmt.Println(err)
-		c.JSON(http.StatusOK, gin.H{
-			"message": "salome emas",
-		})
+		c.JSON(http.StatusBadRequest, models.Err{Error: err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"message": "salom",
-	})
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	defer cancel()
+
+	res, err := h.serviceManager.PostService().CreatePost(ctx, &body)
+	if err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusInternalServerError, models.Err{Error: err.Error()})
+		return
+	}
+	c.JSON(http.StatusCreated, res)
 }
 
 // GetPostAs godoc
@@ -41,25 +47,30 @@ func (h *handlerV1) CreatePost(c *gin.Context) {
 // @Tags Post
 // @Accept json
 // @Produce json
-// @Param todo body models.GetPostReq true "Get Post"
-// @Success 201 {object} models.GetUserRes
+// @Param todo body post_proto.GetPostReq true "Get Post"
+// @Success 200 {object} post_proto.GetPostRes
 // @Failure 401 {object} models.Err
 // @Failure 500 {object} models.Err
-// @Router /post/get [GET]
+// @Router /post/get [PUT]
 func (h *handlerV1) GetPost(c *gin.Context) {
-	body := models.GetPostReq{}
+	body := pp.GetPostReq{}
 	err := c.ShouldBindJSON(&body)
-	fmt.Println(body)
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusOK, gin.H{
-			"message": "salome emas",
-		})
+		c.JSON(http.StatusBadRequest, models.Err{Error: err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"message": "salom",
-	})
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	defer cancel()
+
+	res, err := h.serviceManager.PostService().GetPost(ctx, &body)
+	if err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusInternalServerError, models.Err{Error: err.Error()})
+		return
+	}
+	c.JSON(http.StatusCreated, res)
 }
 
 // UpdatePostAs godoc
@@ -68,25 +79,30 @@ func (h *handlerV1) GetPost(c *gin.Context) {
 // @Tags Post
 // @Accept json
 // @Produce json
-// @Param todo body models.UpdatePostReq true "Update Post"
-// @Success 201 {object} models.GetPostRes
+// @Param todo body post_proto.UpdatePostReq true "Update Post"
+// @Success 200 {object} post_proto.GetPostRes
 // @Failure 401 {object} models.Err
 // @Failure 500 {object} models.Err
 // @Router /post/update [PUT]
 func (h *handlerV1) UpdatePost(c *gin.Context) {
-	body := models.UpdatePostReq{}
+	body := pp.UpdatePostReq{}
 	err := c.ShouldBindJSON(&body)
-	fmt.Println(body)
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusOK, gin.H{
-			"message": "salome emas",
-		})
+		c.JSON(http.StatusBadRequest, models.Err{Error: err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"message": "salom",
-	})
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	defer cancel()
+
+	res, err := h.serviceManager.PostService().UpdatePost(ctx, &body)
+	if err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusInternalServerError, models.Err{Error: err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // DeletePostAs godoc
@@ -95,25 +111,30 @@ func (h *handlerV1) UpdatePost(c *gin.Context) {
 // @Tags Post
 // @Accept json
 // @Produce json
-// @Param todo body models.DeletePostReq true "Delete Post"
-// @Success 201 {object} models.Message
+// @Param todo body post_proto.DeletePostReq true "Delete Post"
+// @Success 200 {object} post_proto.Message
 // @Failure 401 {object} models.Err
 // @Failure 500 {object} models.Err
 // @Router /post/delete [PUT]
 func (h *handlerV1) DeletePost(c *gin.Context) {
-	body := models.DeletePostReq{}
+	body := pp.DeletePostReq{}
 	err := c.ShouldBindJSON(&body)
-	fmt.Println(body)
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusOK, gin.H{
-			"message": "salome emas",
-		})
+		c.JSON(http.StatusBadRequest, models.Err{Error: err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"message": "salom",
-	})
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	defer cancel()
+
+	res, err := h.serviceManager.PostService().DeletePost(ctx, &body)
+	if err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusInternalServerError, models.Err{Error: err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }
 
 // ListUserPostsAs godoc
@@ -122,25 +143,25 @@ func (h *handlerV1) DeletePost(c *gin.Context) {
 // @Tags Post
 // @Accept json
 // @Produce json
-// @Param todo body models.ListUserPosts true "List posts"
-// @Success 201 {object} models.ListPostsRes
+// @Param id path string true "user_id"
+// @Success 200 {object} post_proto.ListPostsRes
 // @Failure 401 {object} models.Err
 // @Failure 500 {object} models.Err
-// @Router /list/user/posts [GET]
+// @Router /list/{id}/posts [GET]
 func (h *handlerV1) ListUserPosts(c *gin.Context) {
-	body := models.ListPostsReq{}
-	err := c.ShouldBindJSON(&body)
-	fmt.Println(body)
+	user_id := c.Param("id")
+	body := pp.ListPostsReq{UserId: user_id}
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	defer cancel()
+
+	res, err := h.serviceManager.PostService().ListUserPosts(ctx, &body)
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusOK, gin.H{
-			"message": "salome emas",
-		})
+		c.JSON(http.StatusInternalServerError, models.Err{Error: err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"message": "salom",
-	})
+	c.JSON(http.StatusOK, res)
 }
 
 // LikePostAs godoc
@@ -149,25 +170,30 @@ func (h *handlerV1) ListUserPosts(c *gin.Context) {
 // @Tags Post
 // @Accept json
 // @Produce json
-// @Param todo body models.LikePostReq true "Like Post"
-// @Success 201 {object} models.Bool
+// @Param todo body post_proto.LikePostReq true "Like Post"
+// @Success 200 {object} post_proto.Bool
 // @Failure 401 {object} models.Err
 // @Failure 500 {object} models.Err
 // @Router /post/like [POST]
 func (h *handlerV1) Like(c *gin.Context) {
-	body := models.LikePostReq{}
+	body := pp.LikePostReq{}
 	err := c.ShouldBindJSON(&body)
-	fmt.Println(body)
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusOK, gin.H{
-			"message": "salome emas",
-		})
+		c.JSON(http.StatusBadRequest, models.Err{Error: err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"message": "salom",
-	})
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	defer cancel()
+
+	res, err := h.serviceManager.PostService().Like(ctx, &body)
+	if err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusInternalServerError, models.Err{Error: err.Error()})
+		return
+	}
+	c.JSON(http.StatusCreated, res)
 }
 
 // DeleteLikeAs godoc
@@ -176,23 +202,28 @@ func (h *handlerV1) Like(c *gin.Context) {
 // @Tags Post
 // @Accept json
 // @Produce json
-// @Param todo body models.LikeDeleteReq true "Delete Like"
-// @Success 201 {object} models.Bool
+// @Param todo body post_proto.LikeDeleteReq true "Delete Like"
+// @Success 200 {object} post_proto.Bool
 // @Failure 401 {object} models.Err
 // @Failure 500 {object} models.Err
 // @Router /post/like [DELETE]
 func (h *handlerV1) DeleteLike(c *gin.Context) {
-	body := models.LikeDeleteReq{}
+	body := pp.LikeDeleteReq{}
 	err := c.ShouldBindJSON(&body)
-	fmt.Println(body)
 	if err != nil {
 		fmt.Println(err)
-		c.JSON(http.StatusOK, gin.H{
-			"message": "salome emas",
-		})
+		c.JSON(http.StatusBadRequest, models.Err{Error: err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"message": "salom",
-	})
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	defer cancel()
+
+	res, err := h.serviceManager.PostService().DeleteLike(ctx, &body)
+	if err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusInternalServerError, models.Err{Error: err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, res)
 }

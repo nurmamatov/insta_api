@@ -33,13 +33,13 @@ func LoadConfig() Config {
 	c.Lpe.LogLevel = cast.ToString(getOrReturnDefault("LOG_LEVEL", "debug"))
 	c.Lpe.Port = cast.ToString(getOrReturnDefault("HTTP_PORT", ":8080"))
 
-	c.Services.PostServiceHost = cast.ToString(getOrReturnDefault("POST_SERVICE_HOST", "post_services"))
+	c.Services.PostServiceHost = cast.ToString(getOrReturnDefault("POST_SERVICE_HOST", "localhost"))
 	c.Services.PostServicePort = cast.ToInt(getOrReturnDefault("POST_SERVICE_PORT", 9000))
 
-	c.Services.UserServiceHost = cast.ToString(getOrReturnDefault("USER_SERVICE_HOST", "user_service"))
+	c.Services.UserServiceHost = cast.ToString(getOrReturnDefault("USER_SERVICE_HOST", "localhost"))
 	c.Services.UserServicePort = cast.ToInt(getOrReturnDefault("USER_SERVICE_PORT", 9002))
 
-	c.Services.CommentServiceHost = cast.ToString(getOrReturnDefault("COMMENT_SERVICE_HOST", "comment_service"))
+	c.Services.CommentServiceHost = cast.ToString(getOrReturnDefault("COMMENT_SERVICE_HOST", "localhost"))
 	c.Services.CommentServicePort = cast.ToInt(getOrReturnDefault("COMMENT_SERVICE_PORT", 9001))
 
 	return c
